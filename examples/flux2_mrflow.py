@@ -12,13 +12,13 @@ SETTINGS = {
     "base4b_12plus1": {
         "stage1_steps": 12,
         "refine_steps": 1,
-        "refine_sigma": 0.10,
+        "refine_sigma": 0.12,
         "guidance_scale": 4.0,
     },
     "base9b_12plus1": {
         "stage1_steps": 12,
         "refine_steps": 1,
-        "refine_sigma": 0.10,
+        "refine_sigma": 0.12,
         "guidance_scale": 4.0,
     },
     "4b_4plus1": {

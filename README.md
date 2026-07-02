@@ -1,17 +1,17 @@
-<div align="center">
-
 # Multi-Resolution Flow Matching: Training-Free Diffusion Acceleration via Staged Sampling
+
+<div align="center">
 
 ### Official implementation for MrFlow
 
 [![Paper](https://img.shields.io/badge/Paper-coming%20soon-b31b1b.svg)](#citation)
 [![Method](https://img.shields.io/badge/method-training--free-4c6fff.svg)](#highlights)
 [![Acceleration](https://img.shields.io/badge/speedup-10x%2B-green.svg)](#results)
-[![Backbones](https://img.shields.io/badge/backbones-Qwen%20%7C%20FLUX%20%7C%20Z--Image-555.svg)](#supported-demos)
+[![Backbones](https://img.shields.io/badge/backbones-FLUX%20%7C%20Qwen--Image%20%7C%20Z--Image-555.svg)](#supported-demos)
 
 </div>
 
-This repository provides a reference implementation of **MrFlow**, a training-free staged sampling method for accelerating pretrained flow-matching text-to-image diffusion models.
+This repository provides the implementation of **MrFlow**, a training-free staged sampling method for accelerating pretrained flow-matching text-to-image diffusion models.
 
 MrFlow first samples a low-resolution image, upsamples the decoded result in pixel space with Real-ESRGAN, re-encodes the upsampled image, injects scheduler-consistent low-strength noise, and performs a short high-resolution refinement. The pipeline shifts most denoising cost from expensive high-resolution sampling to cheaper low-resolution sampling while preserving local detail quality.
 
@@ -29,8 +29,8 @@ MrFlow first samples a low-resolution image, upsamples the decoded result in pix
 
 ## 📢 News
 
-- MrFlow reference demos are prepared for release.
-- The public paper link and finalized citation will be added when available.
+- [2026/07] ⚡ We release the MrFlow ComfyUI plugin.
+- [2026/07] 🔥 We release the MrFlow paper and source code.
 
 ## 🛠️ Installation
 
@@ -51,7 +51,7 @@ The scripts contain placeholder checkpoint paths. Replace them with local paths 
 
 ## 🚀 Quick Start
 
-The root directory contains two minimal reference scripts:
+The repository root keeps only two minimal reference scripts plus the shared scheduler helper:
 
 | Script | Model | Setting | Output |
 | --- | --- | --- | --- |
@@ -86,13 +86,13 @@ Each script saves:
 | Setting | Low-resolution steps | Refinement steps | Direct sigma | Typical use |
 | --- | ---: | ---: | ---: | --- |
 | `12plus1` | 12 | 1 | `0.12` | Aggressive acceleration. |
-| `20plus1` | 20 | 1 | `0.15` | Higher-quality operating point. |
+| `20plus1` | 20 | 1 | `0.12` | Higher-quality operating point. |
 
 The high-resolution refinement uses an explicit direct-sigma schedule. For example, `12plus1` denotes 12 low-resolution denoising steps followed by one high-resolution step from `sigma=0.12` to `0`.
 
 ## 📦 Supported Demos
 
-Parameterized variants and additional model-family demos are available in `examples/`.
+Parameterized variants, additional model-family demos, and example-only helpers are available in `examples/`.
 
 | Script | Backbone | Notes |
 | --- | --- | --- |
@@ -102,6 +102,8 @@ Parameterized variants and additional model-family demos are available in `examp
 | `examples/flux1_piflow_mrflow.py` | FLUX.1-dev + Pi-Flow | Combines MrFlow with distilled weights. |
 | `examples/flux2_mrflow.py` | FLUX.2 Klein | Base and non-base variants. |
 | `examples/zimage_turbo_mrflow.py` | Z-Image-Turbo | Reduced-step model plus MrFlow refinement. |
+| `examples/piflow_local.py` | Pi-Flow helper | Local LakonLab import and scheduler shims used by Pi-Flow demos. |
+| `examples/zimage_utils.py` | Z-Image helper | Small wrapper utilities used by the Z-Image-Turbo demo. |
 
 Run all configured examples with:
 
@@ -110,6 +112,8 @@ bash examples/run_examples.sh
 ```
 
 See [examples/README.md](examples/README.md) for command-line usage, FLUX.2 Klein presets, Z-Image-Turbo refinement defaults, and output filename conventions.
+
+Pi-Flow examples are optional and require a separate local checkout of [LakonLab](https://github.com/Lakonik/LakonLab). Set `LAKONLAB_ROOT` to that checkout before running the Pi-Flow scripts.
 
 ## 🧩 ComfyUI Plugin
 
@@ -153,7 +157,7 @@ Speedups are measured end to end, including text encoding, VAE encode/decode, su
 
 - [x] Project README, framework figure, visual results, trade-off plot, and runtime breakdown.
 - [x] Implementation code.
-- [ ] Public paper link.
+- [x] Public paper link.
 - [x] ComfyUI extension plugin.
 
 ## 📝 Citation
@@ -162,4 +166,4 @@ If you find MrFlow useful, please cite our paper. The BibTeX entry will be added
 
 ## 🙏 Acknowledgements
 
-This implementation builds on the Diffusers ecosystem and uses Real-ESRGAN for pixel-space super-resolution.
+This implementation builds on the Diffusers ecosystem and uses [Real-ESRGAN](https://github.com/xinntao/Real-ESRGAN) for pixel-space super-resolution.

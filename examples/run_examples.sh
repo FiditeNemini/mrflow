@@ -7,6 +7,7 @@ PROMPT="Close-up of a chubby golden British shorthair on a knitted blanket, tiny
 REALESRGAN_X2="/path/to/RealESRGAN_x2.pth"
 OUT_ROOT="mrflow_outputs"
 SEED=2026
+RUN_PIFLOW="${RUN_PIFLOW:-0}"
 
 QWEN_IMAGE="/path/to/Qwen-Image"
 FLUX1_DEV="/path/to/FLUX.1-dev"
@@ -35,21 +36,25 @@ python "${SCRIPT_DIR}/flux1_mrflow.py" \
   --seed "${SEED}" \
   --output-dir "${OUT_ROOT}/flux1_mrflow_12plus1"
 
-python "${SCRIPT_DIR}/qwen_image_piflow_mrflow.py" \
-  --prompt "${PROMPT}" \
-  --model "${QWEN_IMAGE}" \
-  --adapter-root "${PI_QWEN_ADAPTER_ROOT}" \
-  --realesrgan-x2 "${REALESRGAN_X2}" \
-  --seed "${SEED}" \
-  --output-dir "${OUT_ROOT}/qwen_image_piflow_mrflow_4plus1"
+if [[ "${RUN_PIFLOW}" == "1" ]]; then
+  : "${LAKONLAB_ROOT:?Set LAKONLAB_ROOT to a local LakonLab checkout before running Pi-Flow examples.}"
 
-python "${SCRIPT_DIR}/flux1_piflow_mrflow.py" \
-  --prompt "${PROMPT}" \
-  --model "${FLUX1_DEV}" \
-  --adapter-root "${PI_FLUX_ADAPTER_ROOT}" \
-  --realesrgan-x2 "${REALESRGAN_X2}" \
-  --seed "${SEED}" \
-  --output-dir "${OUT_ROOT}/flux1_piflow_mrflow_4plus1"
+  python "${SCRIPT_DIR}/qwen_image_piflow_mrflow.py" \
+    --prompt "${PROMPT}" \
+    --model "${QWEN_IMAGE}" \
+    --adapter-root "${PI_QWEN_ADAPTER_ROOT}" \
+    --realesrgan-x2 "${REALESRGAN_X2}" \
+    --seed "${SEED}" \
+    --output-dir "${OUT_ROOT}/qwen_image_piflow_mrflow_4plus1"
+
+  python "${SCRIPT_DIR}/flux1_piflow_mrflow.py" \
+    --prompt "${PROMPT}" \
+    --model "${FLUX1_DEV}" \
+    --adapter-root "${PI_FLUX_ADAPTER_ROOT}" \
+    --realesrgan-x2 "${REALESRGAN_X2}" \
+    --seed "${SEED}" \
+    --output-dir "${OUT_ROOT}/flux1_piflow_mrflow_4plus1"
+fi
 
 python "${SCRIPT_DIR}/flux2_mrflow.py" \
   --prompt "${PROMPT}" \

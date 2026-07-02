@@ -6,28 +6,40 @@ from pathlib import Path
 import torch
 
 
-LAKONLAB_ROOT = Path(
-    os.environ.get("LAKONLAB_ROOT", Path(__file__).resolve().parent / "third_party" / "LakonLab")
-)
+LAKONLAB_REPO = "https://github.com/Lakonik/LakonLab"
 
 
 def add_lakonlab_to_path():
-    if not LAKONLAB_ROOT.exists():
+    lakonlab_root = os.environ.get("LAKONLAB_ROOT")
+    if not lakonlab_root:
         raise FileNotFoundError(
-            "LakonLab is required for PiFlow examples. Set LAKONLAB_ROOT to the LakonLab repository path."
+            "Pi-Flow examples require a local LakonLab checkout. "
+            f"Clone {LAKONLAB_REPO} and set LAKONLAB_ROOT to that directory."
         )
-    root = str(LAKONLAB_ROOT)
+    lakonlab_root = Path(lakonlab_root).expanduser().resolve()
+    if not lakonlab_root.exists():
+        raise FileNotFoundError(
+            f"LAKONLAB_ROOT does not exist: {lakonlab_root}. "
+            f"Clone {LAKONLAB_REPO} and set LAKONLAB_ROOT to that directory."
+        )
+    if not (lakonlab_root / "lakonlab").is_dir():
+        raise FileNotFoundError(
+            f"LAKONLAB_ROOT does not look like a LakonLab checkout: {lakonlab_root}. "
+            "Expected a 'lakonlab' package directory inside it."
+        )
+    root = str(lakonlab_root)
     if root not in sys.path:
         sys.path.insert(0, root)
+    return lakonlab_root
 
 
 def install_lakonlab_inference_shims():
     """Avoid importing LakonLab training-only modules that need optional deps."""
-    add_lakonlab_to_path()
-    models_path = LAKONLAB_ROOT / "lakonlab" / "models"
+    lakonlab_root = add_lakonlab_to_path()
+    models_path = lakonlab_root / "lakonlab" / "models"
     diffusions_path = models_path / "diffusions"
     architectures_path = models_path / "architectures"
-    runner_path = LAKONLAB_ROOT / "lakonlab" / "runner"
+    runner_path = lakonlab_root / "lakonlab" / "runner"
 
     if "lakonlab.models" not in sys.modules:
         module = types.ModuleType("lakonlab.models")
@@ -57,7 +69,7 @@ def install_lakonlab_inference_shims():
         sys.modules["lakonlab.runner"] = module
     if "lakonlab.utils" not in sys.modules:
         module = types.ModuleType("lakonlab.utils")
-        module.__path__ = [str(LAKONLAB_ROOT / "lakonlab" / "utils")]
+        module.__path__ = [str(lakonlab_root / "lakonlab" / "utils")]
         module.get_root_logger = _get_root_logger
         module.rgetattr = _rgetattr
         sys.modules["lakonlab.utils"] = module

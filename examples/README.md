@@ -7,7 +7,7 @@ This directory provides parameterized MrFlow examples for different model famili
 | Setting | Low-resolution steps | Refinement steps | Refinement sigma | Use case |
 | --- | ---: | ---: | ---: | --- |
 | `12plus1` | 12 | 1 | `0.12` | Aggressive acceleration. |
-| `20plus1` | 20 | 1 | `0.15` | Higher-quality operating point. |
+| `20plus1` | 20 | 1 | `0.12` | Higher-quality operating point. |
 
 The direct-sigma schedule explicitly specifies the starting noise level of the high-resolution refinement stage.
 
@@ -22,6 +22,8 @@ For `flux2_mrflow.py`, the available presets are:
 
 For `zimage_turbo_mrflow.py`, the default operating point uses `--stage1-steps 9`, `--refine-steps 9`, and `--strength 0.11`. These values are exposed as command-line arguments because Z-Image-Turbo uses its own reduced-step schedule.
 
+Pi-Flow examples require a separate local checkout of LakonLab; it is not vendored in this repository. Clone `https://github.com/Lakonik/LakonLab` and set `LAKONLAB_ROOT` to that checkout before running `qwen_image_piflow_mrflow.py` or `flux1_piflow_mrflow.py`.
+
 ## Script Index
 
 | Script | Backbone | Notes |
@@ -33,6 +35,8 @@ For `zimage_turbo_mrflow.py`, the default operating point uses `--stage1-steps 9
 | `flux2_mrflow.py` | FLUX.2 Klein | Supports base and non-base settings. |
 | `zimage_turbo_mrflow.py` | Z-Image-Turbo | Adds MrFlow refinement to a reduced-step model. |
 | `direct_sigma_refine.py` | Shared helper | Builds explicit direct-sigma refinement schedules. |
+| `piflow_local.py` | Pi-Flow helper | Local LakonLab import and scheduler shims used by Pi-Flow demos. |
+| `zimage_utils.py` | Z-Image helper | Small wrapper utilities used by the Z-Image-Turbo demo. |
 
 ## Usage
 
@@ -59,6 +63,7 @@ python examples/flux1_mrflow.py \
 Qwen-Image + Pi-Flow:
 
 ```bash
+export LAKONLAB_ROOT="/path/to/LakonLab"
 python examples/qwen_image_piflow_mrflow.py \
   --prompt "${PROMPT}" \
   --model "${QWEN_IMAGE}" \
@@ -69,6 +74,7 @@ python examples/qwen_image_piflow_mrflow.py \
 FLUX.1-dev + Pi-Flow:
 
 ```bash
+export LAKONLAB_ROOT="/path/to/LakonLab"
 python examples/flux1_piflow_mrflow.py \
   --prompt "${PROMPT}" \
   --model "${FLUX1_DEV}" \
@@ -114,9 +120,16 @@ You can also edit all placeholder paths in `run_examples.sh` and run:
 bash examples/run_examples.sh
 ```
 
+`run_examples.sh` skips Pi-Flow examples by default because LakonLab and Pi-Flow adapter checkpoints are external. To include them, set:
+
+```bash
+export LAKONLAB_ROOT="/path/to/LakonLab"
+RUN_PIFLOW=1 bash examples/run_examples.sh
+```
+
 ## Outputs
 
-Root-level demos write fixed filenames:
+Root quick-start demos write fixed filenames:
 
 - `stage1_low.png`
 - `stage2_upscaled.png`

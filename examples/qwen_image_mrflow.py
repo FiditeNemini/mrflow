@@ -9,7 +9,7 @@ from direct_sigma_refine import force_direct_sigma_set_timesteps
 
 
 SETTINGS = {
-    "20plus1": {"stage1_steps": 20, "refine_steps": 1, "refine_sigma": 0.15},
+    "20plus1": {"stage1_steps": 20, "refine_steps": 1, "refine_sigma": 0.12},
     "12plus1": {"stage1_steps": 12, "refine_steps": 1, "refine_sigma": 0.12},
 }
 

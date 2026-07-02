@@ -117,6 +117,10 @@ Pi-Flow examples are optional and require a separate local checkout of [LakonLab
 
 ## 🧩 ComfyUI Plugin
 
+<p align="center">
+  <img src="assets/comfyui.png" width="96%" alt="MrFlow ComfyUI Plugin">
+</p>
+
 The repository also includes `ComfyUI-MrFlow/`, a ComfyUI custom-node extension for Qwen-oriented MrFlow workflows. It provides helper nodes, editable workflow and API JSON examples, a reusable subgraph, and a model-link helper for split Qwen-Image bundles.
 
 To use it, place or symlink `ComfyUI-MrFlow/` into `ComfyUI/custom_nodes/`, restart ComfyUI, and open `ComfyUI-MrFlow/examples/qwen_mrflow_workflow.json` or load `ComfyUI-MrFlow/subgraphs/qwen_mrflow.json`.
@@ -159,6 +163,7 @@ Speedups are measured end to end, including text encoding, VAE encode/decode, su
 - [x] Implementation code.
 - [x] Public paper link.
 - [x] ComfyUI extension plugin.
+- [ ] Demo video.
 
 ## 📝 Citation
 

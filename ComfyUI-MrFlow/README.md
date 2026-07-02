@@ -1,5 +1,9 @@
 # ComfyUI-MrFlow
 
+<p align="center">
+  <img src="../assets/comfyui.png" width="96%" alt="MrFlow ComfyUI Plugin">
+</p>
+
 MrFlow helper nodes for ComfyUI Qwen workflows.
 
 This extension adds a compact Qwen-specific path around the standard ComfyUI loaders, upscale model, and sampler nodes. It supports a four-stage flow:

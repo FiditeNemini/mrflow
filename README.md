@@ -4,7 +4,7 @@
 
 ### Official implementation for MrFlow
 
-[![Paper](https://img.shields.io/badge/Paper-coming%20soon-b31b1b.svg)](#citation)
+[![Paper](https://img.shields.io/badge/Paper-arXiv%3A2607.01642-b31b1b.svg)](https://arxiv.org/abs/2607.01642)
 [![Method](https://img.shields.io/badge/method-training--free-4c6fff.svg)](#highlights)
 [![Acceleration](https://img.shields.io/badge/speedup-10x%2B-green.svg)](#results)
 [![Backbones](https://img.shields.io/badge/backbones-FLUX%20%7C%20Qwen--Image%20%7C%20Z--Image-555.svg)](#supported-demos)
@@ -30,7 +30,7 @@ MrFlow first samples a low-resolution image, upsamples the decoded result in pix
 ## 📢 News
 
 - [2026/07] ⚡ We release the MrFlow ComfyUI plugin.
-- [2026/07] 🔥 We release the MrFlow paper and source code.
+- [2026/07] 🔥 The MrFlow paper is available on [arXiv](https://arxiv.org/abs/2607.01642), and the source code is released.
 
 ## 🛠️ Installation
 
@@ -167,7 +167,19 @@ Speedups are measured end to end, including text encoding, VAE encode/decode, su
 
 ## 📝 Citation
 
-If you find MrFlow useful, please cite our paper. The BibTeX entry will be added after the public paper version is finalized.
+If you find MrFlow useful, please cite our paper:
+
+```bibtex
+@misc{zheng2026multiresolutionflowmatchingtrainingfree,
+  title={Multi-Resolution Flow Matching: Training-Free Diffusion Acceleration via Staged Sampling},
+  author={Xingyu Zheng and Xianglong Liu and Yifu Ding and Weilun Feng and Junqing Lin and Jinyang Guo and Haotong Qin},
+  year={2026},
+  eprint={2607.01642},
+  archivePrefix={arXiv},
+  primaryClass={cs.CV},
+  url={https://arxiv.org/abs/2607.01642},
+}
+```
 
 ## 🙏 Acknowledgements
 

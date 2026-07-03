@@ -97,14 +97,12 @@ Parameterized variants, additional model-family demos, and example-only helpers 
 
 | Script | Backbone | Notes |
 | --- | --- | --- |
-| `examples/qwen_image_mrflow.py` | Qwen-Image | Training-free MrFlow. |
 | `examples/flux1_mrflow.py` | FLUX.1-dev | Training-free MrFlow. |
-| `examples/qwen_image_piflow_mrflow.py` | Qwen-Image + Pi-Flow | Combines MrFlow with distilled weights. |
 | `examples/flux1_piflow_mrflow.py` | FLUX.1-dev + Pi-Flow | Combines MrFlow with distilled weights. |
+| `examples/qwen_image_mrflow.py` | Qwen-Image | Training-free MrFlow. |
+| `examples/qwen_image_piflow_mrflow.py` | Qwen-Image + Pi-Flow | Combines MrFlow with distilled weights. |
 | `examples/flux2_mrflow.py` | FLUX.2 Klein | Base and non-base variants. |
 | `examples/zimage_turbo_mrflow.py` | Z-Image-Turbo | Reduced-step model plus MrFlow refinement. |
-| `examples/piflow_local.py` | Pi-Flow helper | Local LakonLab import and scheduler shims used by Pi-Flow demos. |
-| `examples/zimage_utils.py` | Z-Image helper | Small wrapper utilities used by the Z-Image-Turbo demo. |
 
 Run all configured examples with:
 

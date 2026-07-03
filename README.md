@@ -29,6 +29,7 @@ MrFlow first samples a low-resolution image, upsamples the decoded result in pix
 
 ## 📢 News
 
+- [2026/07] 📰 MrFlow is featured on [Hugging Face Daily Papers](https://huggingface.co/papers/2607.01642).
 - [2026/07] ⚡ We release the MrFlow ComfyUI plugin.
 - [2026/07] 🔥 The MrFlow paper is available on [arXiv](https://arxiv.org/abs/2607.01642), and the source code is released.
 

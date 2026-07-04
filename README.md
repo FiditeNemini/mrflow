@@ -1,4 +1,4 @@
-# Multi-Resolution Flow Matching: Training-Free Diffusion Acceleration via Staged Sampling
+﻿# Multi-Resolution Flow Matching: Training-Free Diffusion Acceleration via Staged Sampling
 
 <div align="center">
 
@@ -30,6 +30,7 @@ MrFlow first samples a low-resolution image, upsamples the decoded result in pix
 
 ## 📢 News
 
+- [2026/07] 💡 We add a [Practical Tips](#practical-tips) section and encourage everyone to share useful observations and takeaways with each other.
 - [2026/07] 🌱 We add a [community contribution area](community/) and welcome developers to share MrFlow ports, workflows, and experiments with each other.
 - [2026/07] 📰 MrFlow is featured on [Hugging Face Daily Papers](https://huggingface.co/papers/2607.01642).
 - [2026/07] ⚡ We release the MrFlow ComfyUI plugin.
@@ -163,6 +164,14 @@ To use it, place or symlink `ComfyUI-MrFlow/` into `ComfyUI/custom_nodes/`, rest
 We have seen strong community interest in adapting MrFlow to additional model families, ComfyUI loaders, and local workflows. To make these efforts easier to share early, community contributions are collected in [`community/experimental/`](community/experimental/) before selected pieces are tested and polished. Contributions that are ready for broader reuse may later move to a sibling `community/verified/` area, or be promoted into the main examples or plugin folders when they become part of the official workflow.
 
 Pull requests are preferred because they are easier to review and track. If you are not familiar with GitHub PRs, it is also fine to open an issue, link your code or workflow, and tag the maintainers directly.
+
+## 💡 Practical Tips
+
+A few notes from our open-source release and community testing:
+
+1. After releasing the open-source version, we have found that keeping the high-resolution refinement to a single step while using a larger direct sigma, such as `0.16`-`0.20`, can often improve visual quality, especially for generations that include text. If this matches your experience, feel free to share your feedback anytime.
+2. [RealRebelAI](https://github.com/RealRebelAI) appears to have found strong MrFlow results on Krea-2, one of the newer state-of-the-art models, and we encourage everyone to try MrFlow on more recent models and share what they discover.
+3. [RealRebelAI](https://github.com/RealRebelAI) also found that using `4x Foolhardy Remacri` for 2048-resolution output can work well with MrFlow. We encourage everyone to try different super-resolution ratios or stronger super-resolution models, since this kind of exploration is very much in the spirit of MrFlow.
 
 ## 📝 Citation
 

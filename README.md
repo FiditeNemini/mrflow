@@ -30,6 +30,7 @@ MrFlow first samples a low-resolution image, upsamples the decoded result in pix
 
 ## 📢 News
 
+- [2026/07] 🌱 We add a community contribution area and welcome developers to share MrFlow ports, workflows, and experiments with each other.
 - [2026/07] 📰 MrFlow is featured on [Hugging Face Daily Papers](https://huggingface.co/papers/2607.01642).
 - [2026/07] ⚡ We release the MrFlow ComfyUI plugin.
 - [2026/07] 🔥 The MrFlow paper is available on [arXiv](https://arxiv.org/abs/2607.01642), and the source code is released.
@@ -92,6 +93,18 @@ Each script saves:
 
 The high-resolution refinement uses an explicit direct-sigma schedule. For example, `12plus1` denotes 12 low-resolution denoising steps followed by one high-resolution step from `sigma=0.12` to `0`.
 
+Representative end-to-end speedups:
+
+| Backbone | Setting | End-to-end speedup |
+| --- | ---: | ---: |
+| FLUX.1-dev | `12 + 1` | `8.25x` |
+| Qwen-Image | `12 + 1` | `10.3x` |
+| FLUX.2 Klein Base 9B | `12 + 1` | `8.79x` |
+| Z-Image-Turbo | `8 + 1` | `21.0x` |
+| Qwen-Image + Pi-Flow | `4 + 1` | up to `25x` |
+
+Speedups are measured end to end, including text encoding, VAE encode/decode, super-resolution, noise preparation, and diffusion forward passes.
+
 ## 📦 Supported Demos
 
 Parameterized variants and additional model-family demos are available in `examples/`.
@@ -115,16 +128,6 @@ See [examples/README.md](examples/README.md) for command-line usage, FLUX.2 Klei
 
 Pi-Flow examples are optional and require a separate local checkout of [LakonLab](https://github.com/Lakonik/LakonLab). Set `LAKONLAB_ROOT` to that checkout before running the Pi-Flow scripts.
 
-## 🧩 ComfyUI Plugin
-
-<p align="center">
-  <img src="assets/comfyui.png" width="96%" alt="MrFlow ComfyUI Plugin">
-</p>
-
-The repository also includes `ComfyUI-MrFlow/`, a ComfyUI custom-node extension for Qwen-oriented MrFlow workflows. It provides helper nodes, editable workflow and API JSON examples, a reusable subgraph, and a model-link helper for split Qwen-Image bundles.
-
-To use it, place or symlink `ComfyUI-MrFlow/` into `ComfyUI/custom_nodes/`, restart ComfyUI, and open `ComfyUI-MrFlow/examples/qwen_mrflow_workflow.json` or load `ComfyUI-MrFlow/subgraphs/qwen_mrflow.json`.
-
 ## 🖼️ Results
 
 **Qwen-Image generation examples.** With 12 low-resolution steps and one high-resolution refinement step, MrFlow produces diverse 1024-resolution samples on Qwen-Image while reaching above `10x` end-to-end speedup.
@@ -145,25 +148,21 @@ To use it, place or symlink `ComfyUI-MrFlow/` into `ComfyUI/custom_nodes/`, rest
   <img src="assets/efficiency.png" width="96%" alt="MrFlow runtime breakdown">
 </p>
 
-## 📊 Representative Numbers
+## 🧩 ComfyUI Plugin
 
-| Backbone | Setting | End-to-end speedup |
-| --- | ---: | ---: |
-| FLUX.1-dev | `12 + 1` | `8.25x` |
-| Qwen-Image | `12 + 1` | `10.3x` |
-| FLUX.2 Klein Base 9B | `12 + 1` | `8.79x` |
-| Z-Image-Turbo | `8 + 1` | `21.0x` |
-| Qwen-Image + Pi-Flow | `4 + 1` | up to `25x` |
+<p align="center">
+  <img src="assets/comfyui.png" width="96%" alt="MrFlow ComfyUI Plugin">
+</p>
 
-Speedups are measured end to end, including text encoding, VAE encode/decode, super-resolution, noise preparation, and diffusion forward passes.
+The repository also includes `ComfyUI-MrFlow/`, a ComfyUI custom-node extension for Qwen-oriented MrFlow workflows. It provides helper nodes, editable workflow and API JSON examples, a reusable subgraph, and a model-link helper for split Qwen-Image bundles.
 
-## 🗺️ Roadmap
+To use it, place or symlink `ComfyUI-MrFlow/` into `ComfyUI/custom_nodes/`, restart ComfyUI, and open `ComfyUI-MrFlow/examples/qwen_mrflow_workflow.json` or load `ComfyUI-MrFlow/subgraphs/qwen_mrflow.json`.
 
-- [x] Project README, framework figure, visual results, trade-off plot, and runtime breakdown.
-- [x] Implementation code.
-- [x] Public paper link.
-- [x] ComfyUI extension plugin.
-- [ ] Demo video.
+## 🌱 Community Contributions
+
+We have seen strong community interest in adapting MrFlow to additional model families, ComfyUI loaders, and local workflows. To make these efforts easier to share early, community contributions are collected in [`community/experimental/`](community/experimental/) before selected pieces are tested and polished. Contributions that are ready for broader reuse may later move to a sibling `community/verified/` area, or be promoted into the main examples or plugin folders when they become part of the official workflow.
+
+Pull requests are preferred because they are easier to review and track. If you are not familiar with GitHub PRs, it is also fine to open an issue, link your code or workflow, and tag the maintainers directly.
 
 ## 📝 Citation
 

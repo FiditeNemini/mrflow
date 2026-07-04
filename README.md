@@ -165,6 +165,7 @@ We have seen strong community interest in adapting MrFlow to additional model fa
 
 Pull requests are preferred because they are easier to review and track. If you are not familiar with GitHub PRs, it is also fine to open an issue, link your code or workflow, and tag the maintainers directly.
 
+<a id="practical-tips"></a>
 ## 💡 Practical Tips
 
 A few notes from our open-source release and community testing:
